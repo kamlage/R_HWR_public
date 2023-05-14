@@ -10,9 +10,39 @@ cols2 <- c("blue","blue", "red","red")
 gender_marital <- c("Married\nmen", "Single\nmen", "Single\nwomen","Married\nwomen")
 gender_marital2 <- c("Married men", "Single men", "Married women","Single women")
 
+#create two vectors with means.Vector "gm" is the requested order. Vector "gm2" is my preferred order.
+gm <- c(mean(wage1$wage[wage1$female == 0 & wage1$married == 1]),
+        mean(wage1$wage[wage1$female == 0 & wage1$married == 0]),
+        mean(wage1$wage[wage1$female == 1 & wage1$married == 0]),
+        mean(wage1$wage[wage1$female == 1 & wage1$married == 1]))
+
+gm2 <- c(mean(wage1$wage[wage1$female == 0 & wage1$married == 1]),
+        mean(wage1$wage[wage1$female == 0 & wage1$married == 0]),
+        mean(wage1$wage[wage1$female == 1 & wage1$married == 1]),
+        mean(wage1$wage[wage1$female == 1 & wage1$married == 0]))
+
+str(gm)
+str(gm2)
 
 #plots by gender and marital status
+#bar plot, HOMEWORK, order of bars as requested
+barplot(gm,
+        ylab = "Dollar per Hour",
+        ylim = c(0, 10),
+        main = "Mean hourly wage by gender and marital status",
+        names = gender_marital,
+        col = cols2)
 
+#bar plot, prefered order of bars, without new line and optimized y-scale
+barplot(gm2,
+        ylab = "Dollar per Hour",
+        ylim = c(0, 9),
+        main = "Mean hourly wage by gender and marital status",
+        names = gender_marital2,
+        col = cols2)
+
+
+#Archiv, first script, just in case git change tracking not activ
 #bar plot, HOMEWORK, order of bars as requested
 barplot(c(mean(wage1$wage[wage1$female == 0 & wage1$married == 1]),
           mean(wage1$wage[wage1$female == 0 & wage1$married == 0]),
@@ -45,3 +75,4 @@ boxplot(wage1$wage[wage1$female == 0 & wage1$married == 1],
         main = "Wage rate per hour by gender and marital status",
         names = gender_marital2,
         col = cols2)
+
