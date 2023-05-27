@@ -69,3 +69,5 @@ p2 <- ggplot(df_final, aes(x = Year,
   scale_x_continuous(breaks = seq(min(df_final$Year), max(df_final$Year), 10))
 
 p2
+
+saveRDS(df_final, file = my_directory/df_final.rds)
