@@ -10,11 +10,12 @@ library(cowplot)
 
 ##extract data from gapminder, prepare and check data
 #minimum
-min <- data.frame(gapminder %>%
-group_by(year) %>%
-summarise(lifeExp = min(lifeExp)))
+min <- gapminder %>%
+  group_by(year) %>%
+  summarise(lifeExp = min(lifeExp)) %>% 
+  rename(Minimum = lifeExp)
 
-colnames(min) <- c("year", "Minimum")
+#colnames(min) <- c("year", "Minimum")
 min
 str(min)
 
