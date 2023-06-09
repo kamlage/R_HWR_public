@@ -64,13 +64,21 @@ data_plot <- min %>%
   inner_join(China, by = "year")
 
 #####Plot
+
+colors <- c("Minimum"= "red", "Median" = "orange", "Maximum" = "blue", "China"="black")
+
 p1 <- ggplot(data_plot, aes(x=year)) +
-  geom_line(aes(y=Minimum), color = "red", linetype="dashed", linewidth=1) +
-  geom_line(aes(y=Median), color = "orange", linetype="dashed", linewidth=1) +
-  geom_line(aes(y=Maximum), color = "blue", linetype="dashed", linewidth=1) +
+  geom_line(aes(y=Minimum, color = "Minimum"), linetype="dashed", linewidth=1) +
+  geom_line(aes(y=Median, color = "Median"), linetype="dashed", linewidth=1) +
+  geom_line(aes(y=Maximum, color = "Maximum"), linetype="dashed", linewidth=1) +
+  geom_line(aes(y=China, color = "China"), linetype="solid", linewidth=1) +
   theme(legend.position = "bottom", strip.background = element_blank()) +
+  scale_colour_manual(values=colors) + 
   theme_bw() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1),axis.title.x = element_blank()) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.x = element_blank(),
+        legend.position = "bottom", 
+        strip.background = element_blank()) +
   labs(color = NULL,
        y = "Life expectancy at birth",
        caption = "Source: Gapminder")
@@ -78,32 +86,32 @@ p1 <- ggplot(data_plot, aes(x=year)) +
 p1
 
 #add data for China
-p2 <- p1 + geom_line(aes(y=China), color = "black", linetype="solid", linewidth=1) 
-
-p2
+# p2 <- p1 + geom_line(aes(y=China), color = "black", linetype="solid", linewidth=1) 
+# 
+# p2
   
 ###prepare legend
-colors <- c("Minimum"= "red", "Median" = "orange", "Maximum" = "blue", "China"="black")
+
   
-plot_just_4_legend <- ggplot(data_plot, aes(x=year)) +
-  geom_line(aes(y=Minimum, color = "Minimum"), size =1.5) +
-  geom_line(aes(y=Median, color = "Median"), size = 1.5) +
-  geom_line(aes(y=Maximum, color = "Maximum"), size = 1.5) +
-  geom_line(aes(y=China, color = "China"), size = 1.5) +
-  labs(x = "Year",
-       y = "lifeExp",
-       color = NULL) +
-  scale_color_manual(values = colors) +
-  theme_bw() +
-  theme(legend.position = "bottom", strip.background = element_blank())
- 
-# extract legend 
-legend <- get_legend(plot_just_4_legend)   
-
-# final combined plot with shared legend
-
-grid.arrange(arrangeGrob(p2, ncol = 1),
-             legend, nrow = 2, heights = c(10, 1))
+# plot_just_4_legend <- ggplot(data_plot, aes(x=year)) +
+#   geom_line(aes(y=Minimum, color = "Minimum"), size =1.5) +
+#   geom_line(aes(y=Median, color = "Median"), size = 1.5) +
+#   geom_line(aes(y=Maximum, color = "Maximum"), size = 1.5) +
+#   geom_line(aes(y=China, color = "China"), size = 1.5) +
+#   labs(x = "Year",
+#        y = "lifeExp",
+#        color = NULL) +
+#   scale_color_manual(values = colors) +
+#   theme_bw() +
+#   theme(legend.position = "bottom", strip.background = element_blank())
+#  
+# # extract legend 
+# legend <- get_legend(plot_just_4_legend)   
+# 
+# # final combined plot with shared legend
+# 
+# grid.arrange(arrangeGrob(p2, ncol = 1),
+#              legend, nrow = 2, heights = c(10, 1))
 
 
 
