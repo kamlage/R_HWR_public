@@ -49,11 +49,19 @@ str(China)
 
 ##combine single datasets
 #cbind does work here, since $years is identical in all datasets. Otherwise join by (merge)
-data_plot <- cbind(min,median$Median,max$Maximum,China$China)
+# data_plot <- cbind(min,median$Median,max$Maximum,China$China)
+# 
+# colnames(data_plot) <- c("year", "Minimum", "Median", "Maximum", "China")
+# data_plot
+# str(data_plot)
 
-colnames(data_plot) <- c("year", "Minimum", "Median", "Maximum", "China")
-data_plot
-str(data_plot)
+# Using dplyr inner_join instead of cbind to join data frames 
+# inner_join retains only rows with matches in both data frames 
+# Other types of joins could work as well in this case
+data_plot <- min %>% 
+  inner_join(median, by = "year") %>% 
+  inner_join(max, by = "year") %>% 
+  inner_join(China, by = "year")
 
 #####Plot
 p1 <- ggplot(data_plot, aes(x=year)) +
