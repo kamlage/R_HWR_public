@@ -1,8 +1,6 @@
 #clear
 rm(list = ls())
 
-# Some change
-
 #load libraries
 library(gapminder)
 library(dplyr)
@@ -67,7 +65,7 @@ data_plot <- min %>%
 
 #####Plot
 
-colors <- c("Minimum"= "red", "Median" = "orange", "Maximum" = "blue", "China"="black")
+colors <- c("Minimum"= "darkred", "Median" = "orange", "Maximum" = "lightblue", "China"="black")
 
 p1 <- ggplot(data_plot, aes(x=year)) +
   geom_line(aes(y=Minimum, color = "Minimum"), linetype="dashed", linewidth=1) +
