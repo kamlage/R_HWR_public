@@ -30,9 +30,9 @@ library(kableExtra)
 
 
 ## Table
-Table 1 reports population data by continent in 2007 as a percentage of the world’s population.
+Table \@ref(tab:table) reports population data by continent in 2007 as a percentage of the world’s population.
 
-```{r}
+```{r table}
 ## population by continent in 2007
 pop_continent <- gapminder %>% 
   filter(year == 2007) %>% 
@@ -76,5 +76,5 @@ ggplot(pop_continent, aes(x="", y=pop, fill=continent)) +
     theme(legend.position = "bottom")
 
 ```
-From Figure 1 we can see that Asia is the most populous continent. In 2007, the percentage of the population of the Asian continent represents `r round(perc_pop_continent$perc[3], digits=2)`% of the world’s population.
+From Figure \@ref(fig:figure) we can see that Asia is the most populous continent. In 2007, the percentage of the population of the Asian continent represents `r round(perc_pop_continent$perc[3], digits=2)`% of the world’s population.
 
