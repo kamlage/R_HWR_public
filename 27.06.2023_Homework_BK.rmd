@@ -1,0 +1,68 @@
+---
+title: 'Lesson 10 - Homework'
+subtitle: 'Data visualisation with R'
+author: "Beate Kamlage"
+date: "`r format(Sys.time(), '%d-%m-%Y')`"
+output:
+  bookdown::pdf_document2:
+    toc: false
+    toc_depth: 2
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+
+library(dplyr)
+library(ggplot2)
+library(gapminder)
+library(scales)
+library(patchwork)
+```
+
+Boxplot[^note]
+
+[^note]: Tip: Use the R package scale to adjust the values of the y-axis in the right-hand side graph.
+
+```{r fig.ncol = 2, fig.cap = "Distribution of life expectancy and GDP per capita by continent, 1952-2007. Source: Gapminder."}
+
+## life expectancy and pcGDP by country
+data_2plot <- gapminder %>%
+      select(year, continent, country, lifeExp, gdpPercap) 
+      
+
+#data_2plot
+
+p1 <- ggplot(data_2plot, aes(x=continent, y=lifeExp, fill=continent)) +
+  geom_boxplot() +
+  scale_fill_manual(values = continent_colors) +
+  theme_bw() +
+  labs(color = NULL,
+       y = "Life expectancy",
+       x= "") +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45,
+                                   hjust = 1),
+        axis.title.x = element_blank())
+
+
+p2 <- ggplot(data_2plot, aes(x=continent, y=gdpPercap, fill=continent)) +
+  geom_boxplot() +
+  scale_fill_manual(values = continent_colors) +
+  theme_bw() +
+  labs(color = NULL,
+       y = "Per capita GDP",
+       x= "") +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45,
+                                   hjust = 1),
+        axis.title.x = element_blank()) +
+  scale_y_continuous(labels = unit_format(unit = "K", scale = 1e-3))
+  
+p1+p2
+```
+
