@@ -80,9 +80,6 @@ server <- function(input, output) {
   # Plot
   output$plot <- renderPlotly({
     
-    selected_continent <- input$continent
-    selected_variable <- input$variable
-    
     
     p1 <- ggplot(df_plot_final()) +
       geom_line(aes(x = year, 
