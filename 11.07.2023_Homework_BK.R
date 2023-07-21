@@ -55,8 +55,12 @@ ui <- fluidPage(
 server <- function(input, output) {
   output$plot <- renderPlotly({
     
-    scenarios <- seq(0, 100,length.out = input$scenarios)
-    set.seed(4077)
+    # Your solution works, but in my opinion it can be simplified
+    #scenarios <- seq(0, 100,length.out = input$scenarios)
+    scenarios <- input$scenarios
+    #set.seed(4077)
+    # Set same seed to compare results
+    set.seed(348546)
     
     p <- plot_ly() %>%
       add_trace(x = c(0,input$periods),
@@ -67,13 +71,16 @@ server <- function(input, output) {
                             width = 2.5),
                 showlegend = FALSE)
     
-    for(r in scenarios) {
+    for(r in 1:scenarios) {
       e <- rnorm(n = input$periods, mean = 0, sd = input$sdev)
       y <- cumsum(input$drift + e) + input$initial_value
       p<-  add_trace(p,
-                      y=y,
+                     # I have included the x variable
+                      x = 1:input$periods, 
+                      y = y,
                       type = 'scatter', 
                       mode = 'lines',
+                      name = paste0("Random walk ", r), # Name & nr. of random walks
                       line = list(color = "grey",
                                   width = 0.6),
                       showlegend = FALSE)
